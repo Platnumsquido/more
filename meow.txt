@@ -1,0 +1,46 @@
+-- Ensure this is inside a LocalScript
+local player = game.Players.LocalPlayer
+local RunService = game:GetService("RunService")
+
+-- Function to change the color of a part
+local function changeColor(part, color)
+    if part:IsA("BasePart") then
+        part.BrickColor = BrickColor.new(color)
+    end
+end
+
+-- Function to change colors of the character
+local function changeCharacterColors(character)
+    local hue = 0 -- Initialize the hue value
+    local function colorCycle()
+        while true do
+            hue = (hue + 1) % 360 -- Increment hue value to create the cycle effect
+            local rainbowColor = Color3.fromHSV(hue / 360, 1, 1)
+            for _, part in ipairs(character:GetDescendants()) do
+                changeColor(part, rainbowColor)
+            end
+            RunService.RenderStepped:Wait() -- Wait for the next frame to update colors
+        end
+    end
+    
+    -- Run the color cycle loop in a separate coroutine to avoid blocking
+    coroutine.wrap(colorCycle)()
+end
+
+-- Function to handle character loading and respawns
+local function onCharacterAdded(character)
+    -- Wait for the character to be fully loaded
+    local humanoid = character:WaitForChild("Humanoid", 10)  -- Adjust timeout if needed
+    if humanoid then
+        -- Change the colors once the character is fully loaded
+        changeCharacterColors(character)
+    end
+end
+
+-- Connect the function to the CharacterAdded event
+player.CharacterAdded:Connect(onCharacterAdded)
+
+-- Change the colors initially if the character already exists
+if player.Character then
+    onCharacterAdded(player.Character)
+end
