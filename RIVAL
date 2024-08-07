@@ -8,7 +8,7 @@ local utilities = {
 };
 
 local aimbot = {
-    enabled = true,
+    enabled = false,
     randomisation = 0,
     distance = 200,
     speed = 0.5,
@@ -16,12 +16,12 @@ local aimbot = {
     teamcheck = false,
     bone = "Head",
     --
-    fov_circle = true,
+    fov_circle = false,
     dynamic = true,
     radius = 120,
     position = "Mouse",
     --
-    snapline = true,
+    snapline = false,
     snapline_color = Color3.fromRGB(255, 255, 255),
     snapline_bone = "HumanoidRootPart",
     snapline_from = "Mouse",
@@ -37,7 +37,7 @@ local Player_Modifications = {
 local ESP = {
     Enabled = true,
     TeamCheck = true,
-    MaxDistance = 200,
+    MaxDistance = 300,
     FontSize = 11,
     FadeOut = {
         OnDistance = true,
